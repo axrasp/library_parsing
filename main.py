@@ -1,3 +1,4 @@
+import argparse
 import os
 import re
 from pathlib import Path
@@ -8,26 +9,38 @@ from bs4 import BeautifulSoup
 from pathvalidate import sanitize_filename
 
 
+def create_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-s', '--start_id', default=1,
+                        help="С какого номера книги начать",
+                        type=int)
+    parser.add_argument('-e', '--end_id', default=5,
+                        help="Да какого номера закончить",
+                        type=int)
+    return parser
+
+
 def check_for_redirect(response):
     if response.history:
         raise requests.HTTPError()
 
 
-def get_book():
+def get_book(start_id: str, end_id: str):
     bookfolder = 'books/'
     Path(bookfolder).mkdir(parents=True, exist_ok=True)
-    for book_id in range(9, 10):
+    for book_id in range(start_id, end_id):
         url = f'https://tululu.org/b{book_id}/'
-        print(url)
         response = requests.get(url)
         response.raise_for_status()
-        print(response.status_code)
         try:
             check_for_redirect(response)
-            book = get_book_info(url=url)
+            book = parse_book_page(url=url)
+            print(f"Название: {book['title']}")
+            print(f"Автор: {book['author']}")
             filename = f'{book_id}. {book["title"]}'
-            #download_txt(url=url, filename=filename, folder='books/')
+            download_txt(url=url, filename=filename, folder='books/')
             download_image(url=book['image_url'], folder='images/')
+
         except Exception as exc:
             print(exc)
 
@@ -75,13 +88,14 @@ def download_image(url: str, folder: str):
     response.raise_for_status()
     image_path = unquote(urlsplit(url).path)
     image_name = os.path.basename(image_path)
-    print(image_name)
     with open(f'{folder}/{image_name}', 'wb') as file:
         file.write(response.content)
 
 
 def main():
-    get_book()
+    parser = create_parser()
+    line_args = parser.parse_args()
+    get_book(start_id=line_args.start_id, end_id=line_args.end_id)
 
 
 if __name__ == '__main__':
