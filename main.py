@@ -1,7 +1,7 @@
 import os
+import re
 from pathlib import Path
 from urllib.parse import unquote, urljoin, urlsplit
-import re
 
 import requests
 from bs4 import BeautifulSoup
@@ -32,7 +32,7 @@ def get_book():
             print(exc)
 
 
-def get_book_info(url):
+def parse_book_page(url):
     book_comments = {}
     book_genres = []
     response = requests.get(url)
