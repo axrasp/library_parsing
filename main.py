@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from urllib.parse import unquote, urljoin, urlsplit
+import re
 
 import requests
 from bs4 import BeautifulSoup
@@ -15,7 +16,7 @@ def check_for_redirect(response):
 def get_book():
     bookfolder = 'books/'
     Path(bookfolder).mkdir(parents=True, exist_ok=True)
-    for book_id in range(7, 8):
+    for book_id in range(9, 10):
         url = f'https://tululu.org/b{book_id}/'
         print(url)
         response = requests.get(url)
@@ -33,21 +34,25 @@ def get_book():
 
 def get_book_info(url):
     book_comments = {}
+    book_genres = []
     response = requests.get(url)
     response.raise_for_status()
     soup = BeautifulSoup(response.text, 'lxml')
     book_name_parsed = soup.find('h1').text.split(' \xa0 :: \xa0 ')
     book_image_path = soup.find(class_='bookimage').find('img')['src']
     book_comments_parsed = soup.find_all(class_='texts')
+    book_genres_parsed = soup.find_all(title=re.compile("книгам этого жанра"))
+    for tag in book_genres_parsed:
+        book_genres.append(tag.text)
     for comment in book_comments_parsed:
         name = comment.find('b').text
         comment = comment.find(class_='black').text
         book_comments[name] = comment
-    print(book_comments)
     book_image_url = urljoin(url, book_image_path)
     book = dict(zip(['title', 'author'], book_name_parsed))
     book['image_url'] = book_image_url
     book['comments'] = book_comments
+    book['genre'] = book_genres
     return book
 
 
