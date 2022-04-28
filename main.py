@@ -75,9 +75,6 @@ def download_txt(url: str, filename: str, folder: str):
     file_path = os.path.join(folder, filename)
     with open(f'{file_path}.txt', 'wb') as file:
         file.write(response.content)
-    with open(f'{file_path}.txt', 'rb') as file:
-        book_text = file.read()
-        return book_text
 
 
 def download_image(url: str, folder: str):
@@ -88,7 +85,6 @@ def download_image(url: str, folder: str):
     image_name = os.path.basename(image_path)
     with open(f'{folder}/{image_name}', 'wb') as file:
         file.write(response.content)
-
 
 def main():
     parser = create_parser()
