@@ -47,7 +47,6 @@ def get_book(start_id: str, end_id: str):
 
 def parse_book_page(url):
     book_comments = {}
-    book_genres = []
     response = requests.get(url)
     response.raise_for_status()
     soup = BeautifulSoup(response.text, 'lxml')
@@ -55,8 +54,7 @@ def parse_book_page(url):
     book_image_path = soup.find(class_='bookimage').find('img')['src']
     book_comments_parsed = soup.find_all(class_='texts')
     book_genres_parsed = soup.find_all(title=re.compile("книгам этого жанра"))
-    for tag in book_genres_parsed:
-        book_genres.append(tag.text)
+    book_genres = [tag.text for tag in book_genres_parsed]
     for comment in book_comments_parsed:
         name = comment.find('b').text
         comment = comment.find(class_='black').text
