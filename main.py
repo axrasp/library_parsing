@@ -71,6 +71,7 @@ def download_txt(url: str, filename: str, folder: str):
     Path(folder).mkdir(parents=True, exist_ok=True)
     response = requests.get(url)
     response.raise_for_status()
+    check_for_redirect(response)
     filename = sanitize_filename(filename)
     file_path = os.path.join(folder, filename)
     with open(f'{file_path}.txt', 'wb') as file:
@@ -81,6 +82,7 @@ def download_image(url: str, folder: str):
     Path(folder).mkdir(parents=True, exist_ok=True)
     response = requests.get(url)
     response.raise_for_status()
+    check_for_redirect(response)
     image_path = unquote(urlsplit(url).path)
     image_name = os.path.basename(image_path)
     with open(f'{folder}/{image_name}', 'wb') as file:
