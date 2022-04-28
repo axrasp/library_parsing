@@ -53,7 +53,7 @@ def get_book(start_id: str, end_id: str):
             print(f"Автор: {book['author']}")
             filename = f'{book_id}. {book["title"]}'
             download_txt(url=url, filename=filename, folder='books/')
-            download_image(url=book['image_url'], folder='images/')
+            download_image(url=book['image_url'], folder='images/', book_id=book_id)
 
         except requests.exceptions.HTTPError as e:
             print(e)
@@ -94,14 +94,14 @@ def download_txt(url: str, filename: str, folder: str):
         file.write(response.content)
 
 
-def download_image(url: str, folder: str):
+def download_image(url: str, folder: str, book_id: int):
     Path(folder).mkdir(parents=True, exist_ok=True)
     response = requests.get(url)
     response.raise_for_status()
     check_for_redirect(response)
     image_path = unquote(urlsplit(url).path)
     image_name = os.path.basename(image_path)
-    with open(f'{folder}/{image_name}', 'wb') as file:
+    with open(f'{folder}/{book_id}_{image_name}', 'wb') as file:
         file.write(response.content)
 
 
