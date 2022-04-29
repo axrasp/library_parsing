@@ -3,7 +3,6 @@ import os
 import re
 from pathlib import Path
 from urllib.parse import unquote, urljoin, urlsplit
-import time
 
 import requests
 from bs4 import BeautifulSoup
@@ -26,35 +25,23 @@ def check_for_redirect(response):
         raise requests.HTTPError()
 
 
-def get_book(start_id: str, end_id: str):
+def get_book(start_id: int, end_id: int):
     bookfolder = 'books/'
     Path(bookfolder).mkdir(parents=True, exist_ok=True)
     for book_id in range(start_id, end_id):
         url = f'https://tululu.org/b{book_id}/'
-        for i in range(3):
-            try:
-                response = requests.get(url)
-                response.raise_for_status()
-                break
-            except requests.exceptions.ConnectionError as e:
-                print(e)
-                print(f"Не удалось скачать книгу {book_id}. "
-                      f"Ошибка подключения. "
-                      f"Повторное подключение к серверу {3-i}")
-                time.sleep(5)
-            except requests.exceptions.HTTPError as e:
-                print(e)
-                print(f"Не удалось скачать книгу {book_id}. Книга не найдена")
-                break
         try:
+            response = requests.get(url)
+            response.raise_for_status()
             check_for_redirect(response)
             book = parse_book_page(html=response.text, url=url)
             print(f"Название: {book['title']}")
             print(f"Автор: {book['author']}")
             filename = f'{book_id}. {book["title"]}'
             download_txt(url=url, filename=filename, folder='books/')
-            download_image(url=book['image_url'], folder='images/', book_id=book_id)
-
+            download_image(url=book['image_url'],
+                           folder='images/',
+                           book_id=book_id)
         except requests.exceptions.HTTPError as e:
             print(e)
             print(f"Не удалось скачать книгу {book_id}. Книга не найдена")
