@@ -5,11 +5,14 @@ from pathlib import Path
 import requests
 from bs4 import BeautifulSoup
 
-from main import check_for_redirect, download_image, download_txt, parse_book_page
+from main import check_for_redirect, download_image, \
+    download_txt, parse_book_page
 
 
 def create_parser():
-    parser = argparse.ArgumentParser(description='Скачиватель книг по категориям с сайта tululu.org')
+    parser = argparse.ArgumentParser(description='Скачиватель книг по '
+                                                 'категориям '
+                                                 'с сайта tululu.org')
     parser.add_argument('-s', '--start_page', default=3,
                         help="С какой страницы начать качать",
                         type=int)
@@ -69,9 +72,11 @@ def get_books(book_ids, catalog_folder, txt, img):
                                                  filename=filename,
                                                  folder=bookfolder)
             if not img:
-                book['img_src'] = download_image(url=book['image_url'],
-                                                 folder=f'{catalog_folder}images',
-                                                 book_id=book_id)
+                book['img_src'] = download_image(
+                    url=book['image_url'],
+                    folder=f'{catalog_folder}images',
+                    book_id=book_id
+                )
             books.append(book)
         except requests.exceptions.HTTPError as e:
             print(e)
@@ -84,7 +89,12 @@ def get_books(book_ids, catalog_folder, txt, img):
 
 def make_json_catalog(filename: str, catalog):
     with open(filename, 'w', encoding='utf8') as json_file:
-        json.dump(catalog, json_file, ensure_ascii=False, sort_keys=True, indent=4)
+        json.dump(catalog,
+                  json_file,
+                  ensure_ascii=False,
+                  sort_keys=True,
+                  indent=4
+                  )
 
 
 def main():
@@ -94,8 +104,9 @@ def main():
     json_path = catalog_folder
     if line_args.json_path:
         json_path = line_args.json_path
-    catalog = get_books(book_ids=parse_category_page(start_page=line_args.start_page,
-                                                     end_page=line_args.end_page),
+    catalog = get_books(book_ids=parse_category_page(
+        start_page=line_args.start_page,
+        end_page=line_args.end_page),
                         catalog_folder=catalog_folder,
                         txt=line_args.skip_txt,
                         img=line_args.skip_imgs)
