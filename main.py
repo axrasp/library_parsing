@@ -1,6 +1,5 @@
 import argparse
 import os
-import re
 from pathlib import Path
 from urllib.parse import unquote, urljoin, urlsplit
 
@@ -10,13 +9,18 @@ from pathvalidate import sanitize_filename
 
 
 def create_parser():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Скачиватель книг '
+                                                 'с сайта tululu.org')
     parser.add_argument('-s', '--start_id', default=1,
                         help="С какого номера книги начать",
                         type=int)
     parser.add_argument('-e', '--end_id', default=5,
                         help="Да какого номера закончить",
                         type=int)
+    parser.add_argument('--dest_folder', default='',
+                        help="Путь к папке с книгами и "
+                             "картинкам",
+                        type=str)
     return parser
 
 
@@ -25,8 +29,8 @@ def check_for_redirect(response):
         raise requests.HTTPError()
 
 
-def get_book(start_id: int, end_id: int):
-    bookfolder = 'books/'
+def get_book(start_id: int, end_id: int, catalog_folder):
+    bookfolder = f'{catalog_folder}books/'
     Path(bookfolder).mkdir(parents=True, exist_ok=True)
     for book_id in range(start_id, end_id):
         url = f'https://tululu.org/b{book_id}/'
@@ -38,9 +42,9 @@ def get_book(start_id: int, end_id: int):
             print(f"Название: {book['title']}")
             print(f"Автор: {book['author']}")
             filename = f'{book_id}. {book["title"]}'
-            download_txt(url=url, filename=filename, folder='books/')
+            download_txt(url=url, filename=filename, folder=bookfolder)
             download_image(url=book['image_url'],
-                           folder='images/',
+                           folder=f'{catalog_folder}images/',
                            book_id=book_id)
         except requests.exceptions.HTTPError as e:
             print(e)
@@ -53,14 +57,14 @@ def get_book(start_id: int, end_id: int):
 def parse_book_page(html, url):
     book_comments = {}
     soup = BeautifulSoup(html, 'lxml')
-    book_name_parsed = soup.find('h1').text.split(' \xa0 :: \xa0 ')
-    book_image_path = soup.find(class_='bookimage').find('img')['src']
-    book_comments_parsed = soup.find_all(class_='texts')
-    book_genres_parsed = soup.find_all(title=re.compile("книгам этого жанра"))
+    book_name_parsed = soup.select_one('h1').get_text().split(' \xa0 :: \xa0 ')
+    book_image_path = soup.select_one('.bookimage img')['src']
+    book_comments_parsed = soup.select('.texts')
+    book_genres_parsed = soup.select('[title~="жанра"]')
     book_genres = [tag.text for tag in book_genres_parsed]
     for comment in book_comments_parsed:
-        name = comment.find('b').text
-        comment = comment.find(class_='black').text
+        name = comment.select_one('b').get_text()
+        comment = comment.select_one('.black').get_text()
         book_comments[name] = comment
     book_image_url = urljoin(url, book_image_path)
     book = dict(zip(['title', 'author'], book_name_parsed))
@@ -79,6 +83,7 @@ def download_txt(url: str, filename: str, folder: str):
     file_path = os.path.join(folder, filename)
     with open(f'{file_path}.txt', 'wb') as file:
         file.write(response.content)
+    return f'{file_path}.txt'
 
 
 def download_image(url: str, folder: str, book_id: int):
@@ -90,12 +95,15 @@ def download_image(url: str, folder: str, book_id: int):
     image_name = os.path.basename(image_path)
     with open(f'{folder}/{book_id}_{image_name}', 'wb') as file:
         file.write(response.content)
+    return f'{folder}/{book_id}_{image_name}'
 
 
 def main():
     parser = create_parser()
     line_args = parser.parse_args()
-    get_book(start_id=line_args.start_id, end_id=line_args.end_id)
+    get_book(start_id=line_args.start_id,
+             end_id=line_args.end_id,
+             catalog_folder=line_args.dest_folder)
 
 
 if __name__ == '__main__':
