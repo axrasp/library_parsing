@@ -5,8 +5,8 @@ from pathlib import Path
 import requests
 from bs4 import BeautifulSoup
 
-from main import check_for_redirect, download_image, \
-    download_txt, parse_book_page
+from main import (check_for_redirect, download_image, download_txt,
+                  parse_book_page)
 
 
 def create_parser():
@@ -19,7 +19,7 @@ def create_parser():
     parser.add_argument('-e', '--end_page', default=4,
                         help="До какой страницы качать",
                         type=int)
-    parser.add_argument('--dest_folder', default='catalog/',
+    parser.add_argument('--dest_folder', default='catalog',
                         help="Путь к каталогу с результатами парсинга: "
                              "картинкам, книгам, JSON",
                         type=str)
@@ -34,12 +34,13 @@ def create_parser():
     return parser
 
 
-def parse_category_page(start_page, end_page):
+def get_book_ids(start_page, end_page):
     for page in range(start_page, end_page):
         url = f'https://tululu.org/l55/{page}/'
         try:
             response = requests.get(url)
             response.raise_for_status()
+            check_for_redirect(response)
             soup = BeautifulSoup(response.text, 'lxml')
             book_category_parsed = soup.select('.d_book div.bookimage a')
             book_ids = [book_parsed['href'].strip('/') for book_parsed
@@ -53,9 +54,10 @@ def parse_category_page(start_page, end_page):
             print("Не удалось подключиться к серверу")
 
 
-def get_books(book_ids, catalog_folder, txt, img):
-    bookfolder = f'{catalog_folder}books/'
-    Path(bookfolder).mkdir(parents=True, exist_ok=True)
+def get_books(book_ids, catalog_folder, skip_txt, skip_img):
+    book_folder = Path.cwd() / catalog_folder / 'books'
+    images_folder = Path.cwd() / catalog_folder / 'images'
+    Path(book_folder).mkdir(parents=True, exist_ok=True)
     books = []
     for book_id in book_ids:
         url = f'https://tululu.org/{book_id}/'
@@ -67,14 +69,14 @@ def get_books(book_ids, catalog_folder, txt, img):
             print(f"Название: {book['title']}")
             print(f"Автор: {book['author']}")
             filename = f'{book_id}_{book["title"]}'
-            if not txt:
+            if not skip_txt:
                 book['book_path'] = download_txt(url=url,
                                                  filename=filename,
-                                                 folder=bookfolder)
-            if not img:
+                                                 folder=book_folder)
+            if not skip_img:
                 book['img_src'] = download_image(
                     url=book['image_url'],
-                    folder=f'{catalog_folder}images',
+                    folder=images_folder,
                     book_id=book_id
                 )
             books.append(book)
@@ -87,30 +89,24 @@ def get_books(book_ids, catalog_folder, txt, img):
     return books
 
 
-def make_json_catalog(filename: str, catalog):
-    with open(filename, 'w', encoding='utf8') as json_file:
-        json.dump(catalog,
-                  json_file,
-                  ensure_ascii=False,
-                  sort_keys=True,
-                  indent=4
-                  )
-
-
 def main():
     parser = create_parser()
     line_args = parser.parse_args()
     catalog_folder = line_args.dest_folder
-    json_path = catalog_folder
+    json_path = Path.cwd() / catalog_folder / 'catalog.json'
     if line_args.json_path:
         json_path = line_args.json_path
-    catalog = get_books(book_ids=parse_category_page(
-        start_page=line_args.start_page,
-        end_page=line_args.end_page),
+    book_ids = get_book_ids(start_page=line_args.start_page,
+                            end_page=line_args.end_page)
+    catalog = get_books(book_ids=book_ids,
                         catalog_folder=catalog_folder,
-                        txt=line_args.skip_txt,
-                        img=line_args.skip_imgs)
-    make_json_catalog(filename=f'{json_path}catalog.json', catalog=catalog)
+                        skip_txt=line_args.skip_txt,
+                        skip_img=line_args.skip_imgs)
+    with open(json_path, 'w', encoding='utf8') as json_file:
+        json.dump(catalog, json_file,
+                  ensure_ascii=False,
+                  sort_keys=True,
+                  indent=4)
 
 
 if __name__ == '__main__':
