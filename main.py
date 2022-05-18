@@ -39,8 +39,6 @@ def get_book(start_id: int, end_id: int, catalog_folder):
             response.raise_for_status()
             check_for_redirect(response)
             book = parse_book_page(html=response.text, url=url)
-            print(f"Название: {book['title']}")
-            print(f"Автор: {book['author']}")
             filename = f'{book_id}. {book["title"]}'
             download_txt(url=url, filename=filename, folder=bookfolder)
             download_image(url=book['image_url'],
@@ -48,10 +46,8 @@ def get_book(start_id: int, end_id: int, catalog_folder):
                            book_id=book_id)
         except requests.exceptions.HTTPError as e:
             print(e)
-            print(f"Не удалось скачать книгу {book_id}. Книга не найдена")
         except requests.exceptions.ConnectionError as e:
             print(e)
-            print("Не удалось подключиться к серверу")
 
 
 def parse_book_page(html, url):

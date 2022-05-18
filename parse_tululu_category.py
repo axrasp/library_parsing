@@ -45,13 +45,11 @@ def get_book_ids(start_page, end_page):
             book_category_parsed = soup.select('.d_book div.bookimage a')
             book_ids = [book_parsed['href'].strip('/') for book_parsed
                         in book_category_parsed]
-            return book_ids
         except requests.exceptions.HTTPError as e:
             print(e)
-            print(f"Не удалось спарсить страницу {page}. Страница не найдена")
         except requests.exceptions.ConnectionError as e:
             print(e)
-            print("Не удалось подключиться к серверу")
+    return book_ids
 
 
 def get_books(book_ids, catalog_folder, skip_txt, skip_img):
@@ -66,8 +64,6 @@ def get_books(book_ids, catalog_folder, skip_txt, skip_img):
             response.raise_for_status()
             check_for_redirect(response)
             book = parse_book_page(html=response.text, url=url)
-            print(f"Название: {book['title']}")
-            print(f"Автор: {book['author']}")
             filename = f'{book_id}_{book["title"]}'
             if not skip_txt:
                 book['book_path'] = download_txt(url=url,
@@ -82,10 +78,8 @@ def get_books(book_ids, catalog_folder, skip_txt, skip_img):
             books.append(book)
         except requests.exceptions.HTTPError as e:
             print(e)
-            print(f"Не удалось скачать книгу {book_id}. Книга не найдена")
         except requests.exceptions.ConnectionError as e:
             print(e)
-            print("Не удалось подключиться к серверу")
     return books
 
 
