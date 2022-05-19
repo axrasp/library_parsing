@@ -35,6 +35,7 @@ def create_parser():
 
 
 def get_book_ids(start_page, end_page):
+    book_ids = []
     for page in range(start_page, end_page):
         url = f'https://tululu.org/l55/{page}/'
         try:
@@ -43,8 +44,9 @@ def get_book_ids(start_page, end_page):
             check_for_redirect(response)
             soup = BeautifulSoup(response.text, 'lxml')
             book_category_parsed = soup.select('.d_book div.bookimage a')
-            book_ids = [book_parsed['href'].strip('/') for book_parsed
+            book_id = [book_parsed['href'].strip('/') for book_parsed
                         in book_category_parsed]
+            book_ids.extend(book_id)
         except requests.exceptions.HTTPError as e:
             print(e)
         except requests.exceptions.ConnectionError as e:
