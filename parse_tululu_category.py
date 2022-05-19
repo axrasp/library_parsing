@@ -1,6 +1,7 @@
 import argparse
 import json
 from pathlib import Path
+import os.path
 
 import requests
 from bs4 import BeautifulSoup
@@ -55,8 +56,8 @@ def get_book_ids(start_page, end_page):
 
 
 def get_books(book_ids, catalog_folder, skip_txt, skip_img):
-    book_folder = Path.cwd() / catalog_folder / 'books'
-    images_folder = Path.cwd() / catalog_folder / 'images'
+    book_folder = os.path.join(catalog_folder, 'books')
+    images_folder = os.path.join(catalog_folder, 'images')
     Path(book_folder).mkdir(parents=True, exist_ok=True)
     books = []
     for book_id in book_ids:
