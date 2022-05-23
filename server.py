@@ -4,9 +4,10 @@ from livereload import Server, shell
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import json
 import more_itertools
+from pathlib import Path
 
 
-def on_reload():
+def on_reload(page_folder):
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -23,7 +24,6 @@ def on_reload():
             catalog=catalog_page,
             catalog_chunked=catalog_column_split
         )
-        page_folder = 'pages'
         page_name = f'index{i}.html'
         page_path = os.path.join(page_folder, page_name)
         with open(page_path, 'w', encoding="utf8") as file:
@@ -31,7 +31,14 @@ def on_reload():
         i += 1
 
 
-on_reload()
-server = Server()
-server.watch('template.html', on_reload)
-server.serve(root='docs/_build/html')
+def main():
+    page_folder = 'pages'
+    Path(page_folder).mkdir(parents=True, exist_ok=True)
+    on_reload(page_folder=page_folder)
+    server = Server()
+    server.watch('template.html', on_reload)
+    server.serve(root='docs/_build/html')
+
+
+if __name__ == '__main__':
+    main()
