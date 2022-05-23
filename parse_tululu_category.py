@@ -45,7 +45,7 @@ def get_book_ids(start_page, end_page):
             check_for_redirect(response)
             soup = BeautifulSoup(response.text, 'lxml')
             book_category_parsed = soup.select('.d_book div.bookimage a')
-            book_id = [book_parsed['href'].strip('/') for book_parsed
+            book_id = [book_parsed['href'].strip('/b') for book_parsed
                         in book_category_parsed]
             book_ids.extend(book_id)
         except requests.exceptions.HTTPError as e:
@@ -61,15 +61,16 @@ def get_books(book_ids, catalog_folder, skip_txt, skip_img):
     Path(book_folder).mkdir(parents=True, exist_ok=True)
     books = []
     for book_id in book_ids:
-        url = f'https://tululu.org/{book_id}/'
+        url = f'https://tululu.org/b{book_id}/'
         try:
             response = requests.get(url)
             response.raise_for_status()
             check_for_redirect(response)
             book = parse_book_page(html=response.text, url=url)
-            filename = f'{book_id}_{book["title"]}'
+            filename = f'b{book_id}_{book["title"]}'
             if not skip_txt:
-                book['book_path'] = download_txt(url=url,
+                url_txt = f'https://tululu.org/txt.php?id={book_id}'
+                book['book_path'] = download_txt(url=url_txt,
                                                  filename=filename,
                                                  folder=book_folder)
             if not skip_img:

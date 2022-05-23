@@ -11,7 +11,7 @@ from pathvalidate import sanitize_filename
 def create_parser():
     parser = argparse.ArgumentParser(description='Скачиватель книг '
                                                  'с сайта tululu.org')
-    parser.add_argument('-s', '--start_id', default=1,
+    parser.add_argument('-s', '--start_id', default=4,
                         help="С какого номера книги начать",
                         type=int)
     parser.add_argument('-e', '--end_id', default=5,
@@ -33,7 +33,7 @@ def get_book(start_id: int, end_id: int, catalog_folder):
     bookfolder = f'{catalog_folder}books/'
     Path(bookfolder).mkdir(parents=True, exist_ok=True)
     for book_id in range(start_id, end_id):
-        url = f'https://tululu.org/b{book_id}/'
+        url = f'https://tululu.org/txt.php?id={book_id}'
         try:
             response = requests.get(url)
             response.raise_for_status()
@@ -77,8 +77,8 @@ def download_txt(url: str, filename: str, folder: str):
     check_for_redirect(response)
     filename = sanitize_filename(filename)
     file_path = os.path.join(folder, filename)
-    with open(f'{file_path}.txt', 'wb') as file:
-        file.write(response.content)
+    with open(f'{file_path}.txt', 'w') as file:
+        file.write(response.text)
     return f'{file_path}.txt'
 
 
@@ -87,11 +87,12 @@ def download_image(url: str, folder: str, book_id: int):
     response = requests.get(url)
     response.raise_for_status()
     check_for_redirect(response)
-    image_path = unquote(urlsplit(url).path)
-    image_name = os.path.basename(image_path)
-    with open(f'{folder}/{book_id}_{image_name}', 'wb') as file:
+    image_url_unquoted = unquote(urlsplit(url).path)
+    image_name = f'b{book_id}_{os.path.basename(image_url_unquoted)}'
+    image_path = os.path.join(folder, image_name)
+    with open(image_path, 'wb') as file:
         file.write(response.content)
-    return f'{folder}/{book_id}_{image_name}'
+    return image_path
 
 
 def main():
