@@ -11,7 +11,7 @@ from pathvalidate import sanitize_filename
 def create_parser():
     parser = argparse.ArgumentParser(description='Скачиватель книг '
                                                  'с сайта tululu.org')
-    parser.add_argument('-s', '--start_id', default=4,
+    parser.add_argument('-s', '--start_id', default=1,
                         help="С какого номера книги начать",
                         type=int)
     parser.add_argument('-e', '--end_id', default=5,

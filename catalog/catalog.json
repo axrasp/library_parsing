@@ -1,0 +1,291 @@
+[
+    {
+        "author": "Карр Алекс",
+        "book_path": "catalog/books/b18943_9-я книга. Тарат Зурбин.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18943_nopic.gif",
+        "title": "9-я книга. Тарат Зурбин"
+    },
+    {
+        "author": "Берендеев Кирилл",
+        "book_path": "catalog/books/b18944_90х60х90.txt",
+        "comments": {
+            "татьяна удодишина": "Ни фантастики, ни фэнтези, обычный детектив... Про обычную жизненную ситуацию... Правда, пара диалогов заставили задуматься, но не более..."
+        },
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18944_nopic.gif",
+        "title": "90х60х90"
+    },
+    {
+        "author": "Цветков Юрий",
+        "book_path": "catalog/books/b18945_995-й святой.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18945_nopic.gif",
+        "title": "995-й святой"
+    },
+    {
+        "author": "Еськов Кирилл",
+        "book_path": "catalog/books/b18946_А, Критика!.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18946_nopic.gif",
+        "title": "А, Критика!"
+    },
+    {
+        "author": "Бойе Карин",
+        "book_path": "catalog/books/b18949_АНТОЛОГИЯ СКАНДИНАВСКОЙ ФАНТАСТИКИ.txt",
+        "comments": {
+            "Давид": "Правда занудная, хоть и фантастика.",
+            "Денис": "Очень информативно и эмоционально содержательно))) Характеристика - \"занудно\", просто разжигает желание прочитать! Качаю!!!",
+            "Елена": "Ну, занудная, ну, фантастика. А все равно интересно было прочитать.",
+            "Зоя Колмакова": "Книга впечатляющая. Не сказать что очень интересная, но подходящего эпитета не подберу. Доведение идеи до л о г и ч н о г о абсурда. И вторая мысль, что человек может ко всему, к любым условиям привыкнуть. А не сам так следующее поколение. Человек слаб в смысле физических условий, но приспособляемость у него большая.",
+            "Крутто Лохансен": "Поочеемуу занууудноо??? Для скаандинннааввии оооччееньь дажжее дииннаммиичнооо.",
+            "Лидия": "Занудная хоть и фантастика."
+        },
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/shots/18949.jpg",
+        "img_src": "catalog/images/b18949_18949.jpg",
+        "title": "АНТОЛОГИЯ СКАНДИНАВСКОЙ ФАНТАСТИКИ"
+    },
+    {
+        "author": "Амнуэль Песах",
+        "book_path": "catalog/books/b18952_А бог един.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18952_nopic.gif",
+        "title": "А бог един"
+    },
+    {
+        "author": "Купцов Василий",
+        "book_path": "catalog/books/b18953_А была ли тайна.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18953_nopic.gif",
+        "title": "А была ли тайна"
+    },
+    {
+        "author": "Трусов Сергей",
+        "book_path": "catalog/books/b18954_А человек забудет.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18954_nopic.gif",
+        "title": "А человек забудет"
+    },
+    {
+        "author": "Браун Фредерик",
+        "book_path": "catalog/books/b18955_А что будет.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18955_nopic.gif",
+        "title": "А что будет"
+    },
+    {
+        "author": "Фостер Алан Дин",
+        "book_path": "catalog/books/b18956_А что с ними делать дальше.txt",
+        "comments": {
+            "Ver.zaxaro2012": "Интересно. Много места для фантазии.",
+            "Алексндр": "Не поцимаю, почему такая низкая оценка.",
+            "Первая муха": "Мне понравилось. Только я думала, что йоппы - это все-таки мы земляне.",
+            "вася": "Этот расказ интересен тока короткий больно охота проду : )",
+            "маклай": "Очень понравилась книга."
+        },
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/shots/18956.jpg",
+        "img_src": "catalog/images/b18956_18956.jpg",
+        "title": "А что с ними делать дальше?"
+    },
+    {
+        "author": "Ван Вогт Альфред",
+        "book_path": "catalog/books/b18958_А дом стоит себе спокойно (Вечный дом).txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18958_nopic.gif",
+        "title": "А дом стоит себе спокойно (Вечный дом)"
+    },
+    {
+        "author": "Хайнлайн Роберт",
+        "book_path": "catalog/books/b18959_А еще мы выгуливаем собак.txt",
+        "comments": {
+            "grei": "Рекомдую у Ханлайнф плохих книг нетю.",
+            "Александр": "Легенький рассказик о фирме оказующей ну просто любые услуги.",
+            "Билл": "Хайнлайн - замечателен!!!"
+        },
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18959_nopic.gif",
+        "title": "А еще мы выгуливаем собак"
+    },
+    {
+        "author": "Глазков Юрий",
+        "book_path": "catalog/books/b18960_А где же Рошар.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18960_nopic.gif",
+        "title": "А где же Рошар"
+    },
+    {
+        "author": "Стульник Сергей",
+        "book_path": "catalog/books/b18961_А и Е.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18961_nopic.gif",
+        "title": "А и Е"
+    },
+    {
+        "author": "Лейбер Фриц",
+        "book_path": "catalog/books/b18962_А я пойду дальше.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18962_nopic.gif",
+        "title": "А я пойду дальше"
+    },
+    {
+        "author": "Каттнер Генри",
+        "book_path": "catalog/books/b18963_А как же еще.txt",
+        "comments": {
+            "Олег": "Чудесный юмор )"
+        },
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18963_nopic.gif",
+        "title": "А как же еще"
+    },
+    {
+        "author": "Корепанов Алексей",
+        "book_path": "catalog/books/b18964_А мне до них.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18964_nopic.gif",
+        "title": "А мне до них"
+    },
+    {
+        "author": "Григорьев Владимир",
+        "book_path": "catalog/books/b18965_А могла бы и быть.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18965_nopic.gif",
+        "title": "А могла бы и быть"
+    },
+    {
+        "author": "Тенн Уильям",
+        "book_path": "catalog/books/b18966_А моя мама - ведьма!.txt",
+        "comments": {
+            "Александр": "Весьма рекомендую. Магия глазами ребёнка, рассказ - троюродный брат шурина кума знакомой подруги от того фильма \"Лабиринт Фавна\"... В общем читаем."
+        },
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18966_nopic.gif",
+        "title": "А моя мама - ведьма!"
+    },
+    {
+        "author": "Молзберг Барри",
+        "book_path": "catalog/books/b18967_А мы лезем в окно.txt",
+        "comments": {
+            "Александр": "По этому рассказу я поставил номер в институте культуры еще  в 1990 году. До сих пор его признают как шедевр студенческого мастерства. Пытались некоторые поставить по-своему, но когда им Евгений Вандалковский рассказывал как ЭТО было - делали реверанс и искали другой материал."
+        },
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18967_nopic.gif",
+        "title": "А мы лезем в окно"
+    },
+    {
+        "author": "Дымов Феликс Яковлевич",
+        "book_path": "catalog/books/b18969_А она уходила.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18969_nopic.gif",
+        "title": "А она уходила"
+    },
+    {
+        "author": "Ашкинази Леонид",
+        "book_path": "catalog/books/b18970_А поезд идет.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18970_nopic.gif",
+        "title": "А поезд идет"
+    },
+    {
+        "author": "Осинский Владимир",
+        "book_path": "catalog/books/b18971_А роза упала на лапу Азора.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18971_nopic.gif",
+        "title": "А роза упала на лапу Азора"
+    },
+    {
+        "author": "Белен",
+        "book_path": "catalog/books/b18972_А вдруг они победят.txt",
+        "comments": {},
+        "genre": [
+            "Научная фантастика"
+        ],
+        "image_url": "https://tululu.org/images/nopic.gif",
+        "img_src": "catalog/images/b18972_nopic.gif",
+        "title": "А вдруг они победят"
+    }
+]
