@@ -8,7 +8,6 @@ from livereload import Server
 
 
 def on_reload():
-    page_folder = 'pages'
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -29,14 +28,12 @@ def on_reload():
             catalog_chunked=catalog_column_split
         )
         page_name = f'index{i}.html'
-        page_path = os.path.join(page_folder, page_name)
+        page_path = os.path.join(page_name)
         with open(page_path, 'w', encoding="utf8") as file:
             file.write(rendered_page)
-    return page_folder
 
 
 def main():
-    Path(on_reload()).mkdir(parents=True, exist_ok=True)
     on_reload()
     server = Server()
     server.watch('template.html', on_reload)
