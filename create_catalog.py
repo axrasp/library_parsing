@@ -6,8 +6,8 @@ import os.path
 import requests
 from bs4 import BeautifulSoup
 
-from main import (check_for_redirect, download_image, download_txt,
-                  parse_book_page)
+from get_book_by_id import (check_for_redirect, download_image, download_txt,
+                            parse_book_page)
 
 
 def create_parser():

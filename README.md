@@ -1,6 +1,6 @@
 # Скачиватель электронных книг со своей библиотекой 
 
-Код позволяет скачивать книги, описанием к ним и обложки с сайта https://tululu.org/.
+Код позволяет скачивать книги, описанием к ним и обложки с сайта https://tululu.org/. И сделать локальную библиотеку в формате веб-каталога.
 
 ## Как установить
 
@@ -15,7 +15,7 @@ pip install -r requirements.txt
 Запуск скрипта производится командой
 
 ```
-python3 main.py 
+python3 get_book_by_id.py 
 ```
 
 Возможно добавить дополнительные аргументы, для того, чтобы скачивать книги с определенными ID (по умолчанию они ``1`` и ``5``): ``--start_id`` и ``--end_id``.
@@ -27,7 +27,7 @@ python3 main.py
 ## Пример использования
 
 ```
-$ python3 main.py --start_id 12 --end_id 14
+$ python3 get_book_by_id.py --start_id 12 --end_id 14
 Название: Бизнес со скоростью мысли
 Автор: Гейтс Билл
 Название: Блеск и нищета информационных технологий. Почему ИТ не являются конкурентным преимуществом
@@ -41,32 +41,32 @@ $ python3 main.py --start_id 12 --end_id 14
 Запуск скрипта производится командой (для примера страницы ``5`` и ``10``)
 
 ```
-python3 parsing_tululu_category.py --start_page 5 --end_page 10
+python3 create_catalog.py --start_page 5 --end_page 10
 ```
 Для изменения параметров, запустите код с со следующими аргументами: 
 
 ``--dest_folder`` Путь к каталогу с результатами парсинга: картинкам, книгам, JSON (по умолчанию ``catalog/``)
 
 ```
-python3 parsing_tululu_category.py --dest_folder new_catalog/
+python3 create_catalog.py --dest_folder new_catalog/
 ```
 
 ``--skip_imgs`` Не скачивать картинки
 
 ```
-python3 parsing_tululu_category.py --skip_imgs
+python3 create_catalog.py --skip_imgs
 ```
 
 ``--skip_txt`` Не скачивать книги
 
 ```
-python3 parsing_tululu_category.py --skip_txt
+python3 create_catalog.py --skip_txt
 ```
 
 ``--json_path`` Указать свой путь к *.json файлу с результатами
 
 ```
-python3 parsing_tululu_category.py --json_path new_json_path_folder/
+python3 create_catalog.py --json_path new_json_path_folder/
 ```
 ## Создание библиотеки скачанных книг из книг категории фантастика
 
@@ -75,10 +75,16 @@ python3 parsing_tululu_category.py --json_path new_json_path_folder/
 После чего запустите код командой:
 
 ```
-python3 server.py 
+python3 make_library.py 
 ```
+После генерации всех страниц, скрипт можно прервать.
 
 Откройте файл ``index.html``
+
+Пример бибилиотеки можно посмотреть по ссылке:
+
+https://axrasp.github.io/library_parsing/index1.html
+
 
 ## Цель проекта
 
