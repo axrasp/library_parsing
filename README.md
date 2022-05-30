@@ -83,8 +83,7 @@ python3 make_library.py
 
 Пример бибилиотеки можно посмотреть по ссылке:
 
-https://axrasp.github.io/library_parsing/index1.html
-
+https://axrasp.github.io/library_parsing/
 
 ## Цель проекта
 
