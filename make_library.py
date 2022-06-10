@@ -19,7 +19,7 @@ def on_reload():
         catalog = json.load(file)
     catalog_page_split = list(more_itertools.chunked(catalog, books_per_page))
     page_qty = len(catalog_page_split)
-    page_indices = list(range(1, (len(catalog_page_split))+1))
+    page_indices = list(range(1, len(catalog_page_split)+1))
     for i, catalog_page in enumerate(catalog_page_split, 1):
         catalog_column_split = list(more_itertools.chunked(catalog_page, 2))
         rendered_page = template.render(
